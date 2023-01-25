@@ -27,7 +27,7 @@
         <p><input type="submit" value="更新" /></p>
     </form>
     <h2>現在の画像</h2>
-    <p><img class="item" th:src="@{/images/{image} (image=${item.image})}"></p>
+    <p><img class="admin_image" th:src="@{/images/{image} (image=${item.image})}"></p>
     <p><a th:href="@{/items/detail/{id} (id=${item.id})}">戻る</a></p>
 </div>
 </html>

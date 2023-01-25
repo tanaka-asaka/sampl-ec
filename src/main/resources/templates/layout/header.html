@@ -13,6 +13,9 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/users/detail/{id} (id=${user.id})}">自分のプロフィール</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/carts/}">カートを見る</a>
+                    </li>
                     <th:block th:if="${user.email == 'admin@admin.com'}">
                         <li class="nav-item">
                             <a class="nav-link" href="/admin">管理ページ</a>
