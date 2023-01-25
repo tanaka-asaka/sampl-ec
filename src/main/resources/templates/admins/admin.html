@@ -21,7 +21,7 @@
 				<td>[[ ${item.price} ]]</td>
 				<td>[[ ${item.stock} ]]</td>
 				<td>[[ ${item.description} ]]</td>
-				<td><img class="item" th:src="@{/images/{image} (image=${item.image})}"></td>
+				<td><img class="admin_image" th:src="@{/images/{image} (image=${item.image})}"></td>
 				<td>
 					<a th:href="@{/items/edit/{id} (id = ${item.id}) }">編集</a>
 					<form method="POST" th:action="@{/items/delete/{id} (id=${item.id})}">

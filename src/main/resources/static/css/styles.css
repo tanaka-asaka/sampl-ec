@@ -83,3 +83,7 @@
 .item_title a {
 	color: #f85f73;
 }
+
+.admin_image {
+	max-height: 200px;
+}

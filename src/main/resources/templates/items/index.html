@@ -31,13 +31,17 @@
                                     [[ ${item.name} ]]: 
                                 </a>
                             </h2>
+                            <div>[[ ${item.description} ]]</div>
                             <th:block th:if="${item.stock > 0}">
                                 <div>[[ ${item.price} ]]円</div>
+                                <form method="post" th:action="@{/carts/add_cart/{id} (id=${item.id})}">
+					                <button type="submit">カートに入れる</button>
+					            </form>
                             </th:block>
 							<th:block th:if="${item.stock <= 0}">
                                 <div>売り切れ</div>
                             </th:block>
-							<div>[[ ${item.description} ]]</div>
+							
 						</div>
 					</div>
 				</div>
