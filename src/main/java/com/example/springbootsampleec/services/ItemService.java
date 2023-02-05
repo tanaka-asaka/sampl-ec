@@ -10,10 +10,15 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
  
 public interface ItemService {
-    // 投稿一覧の取得
+
+	// 投稿一覧の取得
     List<Item> findAll();
     // ID を指定して投稿を取得
     Optional<Item> findById(long id);
+    
+    // 商品名で検索する
+    List<Item> findByName(String keyword);
+    
     // 商品情報を更新
     void updateItem(long id, String name, int price, int stock, String description);
     // 削除

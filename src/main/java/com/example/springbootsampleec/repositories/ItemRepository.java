@@ -11,4 +11,7 @@ import java.util.Optional;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
 	Optional<Item> findById(int id);
+	
+	// 商品名で検索する
+	List<Item> findByName(String keyword);
 }
