@@ -40,15 +40,15 @@ public class ItemController {
 	public String index(@AuthenticationPrincipal(expression = "user") User user,
 			@RequestParam(defaultValue = "") String keyword, Model model) {
 		User refreshedUser = userService.findById(user.getId()).orElseThrow();
-		// 最初のログインで商品が表示されない原因を探ってみる
-		System.out.println("keyword : "+keyword);
+		// 変数スコープの問題、itemsをif文の上で宣言しないとダメ
+		List<Item> items = new ArrayList<>();
 		// キーワードが無ければ、元の全件検索をする
-		if (keyword.equals("") || keyword.isEmpty()) {
-			List<Item> items = itemService.findAll();
+		if (keyword.equals("")) {
+			items = itemService.findAll();
+		} else {
+			// 名前で絞る
+			items = itemService.findByName(keyword);
 		}
-		// 名前で絞る
-		List<Item> items = itemService.findByName(keyword);
-
 		model.addAttribute("user", refreshedUser);
 		model.addAttribute("items", items);
 		model.addAttribute("title", "商品一覧");
