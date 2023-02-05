@@ -46,8 +46,8 @@ public class ItemController {
 		if (keyword.equals("")) {
 			items = itemService.findAll();
 		} else {
-			// 名前で絞る
-			items = itemService.findByName(keyword);
+			// 名前で絞る 部分一致対応
+			items = itemService.findByNameContaining(keyword);
 		}
 		model.addAttribute("user", refreshedUser);
 		model.addAttribute("items", items);
