@@ -14,6 +14,9 @@ import org.springframework.core.env.Environment;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.validation.OverridesAttribute;
+
 import java.util.Optional;
  
 import java.io.IOException;
@@ -52,6 +55,12 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findById(id);
     }
     
+    // 商品名がパンダで絞ってみる
+    @Override
+    public List<Item> findByName(String name) {
+        return itemRepository.findByName(name);
+    }
+
     @Transactional(readOnly = false)
     @Override
     public void updateItem(long id, String name, int price, int stock, String description) {

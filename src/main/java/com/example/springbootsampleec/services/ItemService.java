@@ -14,6 +14,13 @@ public interface ItemService {
     List<Item> findAll();
     // ID を指定して投稿を取得
     Optional<Item> findById(long id);
+
+    // 商品名がパンダで絞ってみる
+	List<Item> findByName(String name);
+	
+    // 検索機能 商品名を指定して投稿を取得
+    //List<Item> findByNameContaining(String name);
+
     // 商品情報を更新
     void updateItem(long id, String name, int price, int stock, String description);
     // 削除
