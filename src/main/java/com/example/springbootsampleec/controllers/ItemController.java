@@ -45,7 +45,7 @@ public class ItemController {
         Model model
     ) {
     	User refreshedUser = userService.findById(user.getId()).orElseThrow();
-        List<Item> items = itemService.findByName("panda");
+        List<Item> items = itemService.findAll();
         model.addAttribute("user", refreshedUser);
         model.addAttribute("items", items);
         model.addAttribute("title", "商品一覧");
