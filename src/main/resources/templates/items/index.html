@@ -28,7 +28,7 @@
 						<div class="col-6 item_description">
 							<h2 class="item_title">
 							    <a th:href="@{/items/detail/{id} (id=${item.id})}">
-                                    [[ ${item.name} ]]: 
+                                    <span class="badge badge-primary" th:if="item.createdAt ge oneDayAgo">new!</span>[[ ${item.name} ]]: 
                                 </a>
                             </h2>
                             <div>[[ ${item.description} ]]</div>
