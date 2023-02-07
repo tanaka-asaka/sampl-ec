@@ -1,8 +1,8 @@
 package com.example.springbootsampleec.controllers;
 
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -50,11 +50,13 @@ public class ItemController {
 			// 名前で絞る 部分一致対応
 			items = itemService.findByNameContaining(keyword);
 		}
-		//一週間前の時間を渡す、newバッジを付与するか比較するため
-		ZonedDateTime oneDayAgo=ZonedDateTime.now().plusDays(-7);
-		System.out.println("oneWeekAgo: " +oneDayAgo);
-		System.out.println("items: " +items);
-		model.addAttribute("oneWeekAgo", oneDayAgo);
+		// 一週間前の時間を渡す、newバッジを付与するか比較するため
+		ZonedDateTime oneWeekAgo = ZonedDateTime.now().minusWeeks(1);
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+		System.out.println("nowDate   : " + ZonedDateTime.now());
+		System.out.println("oneWeekAgo: " + formatter.format(oneWeekAgo));
+		System.out.println("itemService.findById(1).orElseThrow().getUpdatedAt(): " + itemService.findById(1).orElseThrow().getUpdatedAt());
+		model.addAttribute("oneWeekAgo", oneWeekAgo);
 		model.addAttribute("user", refreshedUser);
 		model.addAttribute("items", items);
 		model.addAttribute("title", "商品一覧");
