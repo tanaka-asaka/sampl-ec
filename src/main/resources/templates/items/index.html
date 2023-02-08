@@ -25,21 +25,26 @@
             <div class="col-6 item_figure">
               <!--/* 画像にも詳細へのリンクを付ける */-->
               <a th:href="@{/items/detail/{id} (id=${item.id})}">
-              <img class="img-fluid" th:src="@{/images/{image} (image=${item.image})}">
+                <img class="img-fluid" th:src="@{/images/{image} (image=${item.image})}">
               </a>
             </div>
             <div class="col-6 item_description">
               <h2 class="item_title">
                 <a th:href="@{/items/detail/{id} (id=${item.id})}">
                   <!--/* 登録して何日か以内のとき、newバッジを付ける */-->
-                  <span class="badge badge-primary" th:if="item.updatedAt >= item.updatedAt-7">new!</span>[[ ${item.name} ]]:
+                  <span class="badge badge-primary" th:if="item.updatedAt >= item.updatedAt-7">new!</span>[[
+                  ${item.name} ]]:
                 </a>
               </h2>
-              <div>[[ ${item.description} ]]
-                <!-- ちょっと追加 --><p>更新日 ： [[ ${#calendars.format(item.updatedAt,"yyyy/MM/dd")} ]]</p><!-- 追加ここまで -->
-              </div>
+              <div>[[ ${item.description} ]]</div>
+              <!-- 在庫数と更新日を追加 -->
               <th:block th:if="${item.stock > 0}">
-                <div>[[ ${item.price} ]]円</div>
+                <div>在庫 ： あと [[ ${item.stock} ]] 個です！</div>
+              </th:block>
+              <p>更新日 ： [[ ${#calendars.format(item.updatedAt,"yyyy/MM/dd")} ]]</p>
+              <!-- 追加ここまで -->
+              <th:block th:if="${item.stock > 0}">
+                <p>[[ ${item.price} ]]円</p>
                 <form method="post" th:action="@{/carts/add_cart/{id} (id=${item.id})}">
                   <button type="submit">カートに入れる</button>
                 </form>
