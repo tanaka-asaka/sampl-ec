@@ -23,7 +23,10 @@
         <div class="card item" th:each="item : ${items}">
           <div class="row item_row">
             <div class="col-6 item_figure">
+              <!--/* 画像にも詳細へのリンクを付ける */-->
+              <a th:href="@{/items/detail/{id} (id=${item.id})}">
               <img class="img-fluid" th:src="@{/images/{image} (image=${item.image})}">
+              </a>
             </div>
             <div class="col-6 item_description">
               <h2 class="item_title">

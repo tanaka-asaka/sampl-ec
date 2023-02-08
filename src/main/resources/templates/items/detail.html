@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="main">
-    <h1>[[ ${title} ]]</h1>
-    <dl>
-        <dt>商品名</dt>
-        <dd>[[ ${item.name} ]]</dd>
-        <dt>価格</dt>
-        <dd>[[ ${item.price} ]]円</dd>
-        <dt>商品説明</dt>
-        <dd>[[ ${item.description} ]]</dd>
-        <dt>商品画像</dt>
-        <dd><img class="item" th:src="@{/images/{image} (image=${item.image})}"></dd>
-    </dl>
+  <h1>[[ ${title} ]]</h1>
+  <dl>
+    <dt>商品名</dt>
+    <dd>[[ ${item.name} ]]</dd>
+    <dt>価格</dt>
+    <dd>[[ ${item.price} ]]円</dd>
+    <dt>商品説明</dt>
+    <dd>[[ ${item.description} ]]</dd>
+    <dt>商品画像</dt>
+    <dd><img class="item" th:src="@{/images/{image} (image=${item.image})}"></dd>
+  </dl>
+  <!--/* 詳細画面でもカートに入れれる機能を追加 */-->
+  <th:block th:if="${item.stock > 0}">
+    <div>[[ ${item.price} ]]円</div>
+    <form method="post" th:action="@{/carts/add_cart/{id} (id=${item.id})}">
+      <button type="submit">カートに入れる</button>
+    </form>
+  </th:block>
+  <th:block th:if="${item.stock <= 0}">
+    <div class="sold_out">売り切れ</div>
+  </th:block>
+
+  <footer class="text-center">
+    <p><small>&copy;CodeCamp All Rights Reserved.</small></p>
+  </footer>
 </div>
+
 </html>

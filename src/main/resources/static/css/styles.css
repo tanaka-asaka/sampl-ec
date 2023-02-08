@@ -1,3 +1,12 @@
+/* 共通ページ設定を追加 */
+body {
+  background-color: #fdeff2;
+}
+footer {
+  margin-top: 20px;;
+}
+
+
 .header_nav {
     display: flex;
     list-style: none;
@@ -79,11 +88,13 @@
 }
 
 /* 売り切れ時、赤字で太字を追加 */
-.item_description .sold_out {
+.sold_out {
   color: red;
   font-weight: bold;
   font-size: 18px;
 }
+
+
 .item_title {
 	font-size: 20px;
 }
