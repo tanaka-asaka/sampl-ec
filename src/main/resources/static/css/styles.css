@@ -74,17 +74,19 @@ footer {
 	margin-bottom: 20px;
 	padding: 10px;
 	border: solid 5px #f0b400;
-
 }
 
 .item_row {
 	align-items: center;
 }
 .item_figure {
-	/* padding: 10px; */
+}
+.item_figure a {
+  display: block;
+  text-align: center
 }
 .item_description {
-
+  padding: 20px;;
 }
 
 /* 売り切れ時、赤字で太字を追加 */
