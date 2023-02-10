@@ -25,7 +25,7 @@
   <th:block th:if="${item.stock > 0}">
     <div>[[ ${item.price} ]]円</div>
     <form method="post" th:action="@{/carts/add_cart/detail/{id} (id=${item.id})}">
-      <button type="submit">カートに入れる</button>
+      <button type="submit"><i class="bi bi-cart"></i> カートに入れる</button>
     </form>
   </th:block>
   <footer class="text-center">

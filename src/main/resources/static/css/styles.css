@@ -2,91 +2,106 @@
 body {
   background-color: #fdeff2;
 }
+
 footer {
-  margin-top: 20px;;
+  margin-top: 20px;
+  ;
 }
 
 
 .header_nav {
-    display: flex;
-    list-style: none;
-    padding-left: 0;
+  display: flex;
+  list-style: none;
+  padding-left: 0;
 }
+
 .header_nav li {
-    margin-right: 30px;
+  margin-right: 30px;
 }
 
 #logout {
-	display:none;
+  display: none;
 }
 
 .item_table {
-	border-collapse: collapse;
-	margin-top: 20px;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-.item_table th, .item_table td {
-	border: solid 1px black;
-	padding: 5px;
+.item_table th,
+.item_table td {
+  border: solid 1px black;
+  padding: 5px;
 }
 
 .item_image {
-	height: 150px;
+  height: 150px;
 }
 
 .navbar-light .navbar-brand.logo {
-	color: #283c63;
-	font-size: 25px;
-	font-weight: bold;
+  color: #283c63;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .main_title {
-	color: #283c63;
+  color: #283c63;
 }
 
 .contents {
-	padding-top: 30px;
+  padding-top: 30px;
 }
+
 .search {
-	margin: 20px 0;
+  margin: 20px 0;
 }
 
 .search .btn.btn-outline-secondary {
-	background-color: #f1eaf5;
+  background-color: #f1eaf5;
 }
+
 .category {
-	padding: 10px;
+  padding: 10px;
 }
 
 .nav_title {
-	font-size: 16px;
-	color: #283c63;
-	background-color: #f0b400;
-	padding: 10px 0;
+  font-size: 16px;
+  color: #283c63;
+  background-color: #f0b400;
+  padding: 10px 0;
 }
 
 .category_menu a {
-	display: block;
+  display: block;
 }
 
-
+/* cardのｃｓｓをオフにして中の.item_rowにcssを付ける */
 .item.card {
-	margin-bottom: 20px;
-	padding: 10px;
-	border: solid 5px #f0b400;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
 }
 
 .item_row {
-	align-items: center;
+  align-items: center;
+  height: 100%;
+  padding: 10px;
+  border: solid 4px #bbbcde;
+  border-radius: 20px 10px 20px 10px;
+  background-color: #eaedf7;
 }
-.item_figure {
-}
+
+.item_figure {}
+
 .item_figure a {
   display: block;
   text-align: center
 }
+
 .item_description {
-  padding: 20px;;
+  padding: 20px;
+  ;
 }
 
 /* 売り切れ時、赤字で太字を追加 */
@@ -96,14 +111,19 @@ footer {
   font-size: 18px;
 }
 
+button {
+  padding: 10px;
+  ;
+}
 
 .item_title {
-	font-size: 20px;
+  font-size: 20px;
 }
+
 .item_title a {
-	color: #f85f73;
+  color: #f85f73;
 }
 
 .admin_image {
-	max-height: 200px;
+  max-height: 200px;
 }
