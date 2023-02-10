@@ -52,10 +52,6 @@ public class ItemController {
 		}
 		// 一週間前の時間を渡す、newバッジを付与するか比較するため
 		ZonedDateTime oneWeekAgo = ZonedDateTime.now().minusWeeks(1);
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME;
-		System.out.println("nowDate   : " + ZonedDateTime.now());
-		System.out.println("oneWeekAgo: " + formatter.format(oneWeekAgo));
-		System.out.println("itemService.findById(1).orElseThrow().getUpdatedAt(): " + itemService.findById(1).orElseThrow().getUpdatedAt());
 		model.addAttribute("oneWeekAgo", oneWeekAgo);
 		model.addAttribute("user", refreshedUser);
 		model.addAttribute("items", items);
