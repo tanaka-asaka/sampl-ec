@@ -23,11 +23,12 @@
   </dl>
   <!--/* 詳細画面でもカートに入れれる機能を追加 */-->
   <th:block th:if="${item.stock > 0}">
-    <div>[[ ${item.price} ]]円</div>
-    <form method="post" th:action="@{/carts/add_cart/detail/{id} (id=${item.id})}">
+    <form class="detail_form" method="post" th:action="@{/carts/add_cart/detail/{id} (id=${item.id})}">
       <button type="submit"><i class="bi bi-cart"></i> カートに入れる</button>
     </form>
   </th:block>
+  <!--/* トップに戻る戻るボタン */-->
+  <p class="pagetop"><a href="#page-top"><i class="bi bi-chevron-double-up"></i></a></p>
   <footer class="text-center">
     <p><small>&copy;CodeCamp All Rights Reserved.</small></p>
   </footer>

@@ -20,7 +20,7 @@
     <div class="row">
       <div class="col-3">
         <h2>メニュー</h2>
-        <p>ここに各種メニューを追加してください。</p>
+        <p><a class="menu" th:href="@{/carts/}"><i class="bi bi-cart"></i> カートを見る</i></a></p>
       </div>
       <!--/* 右側部分 */-->
       <div class="col-9">
@@ -38,7 +38,7 @@
                   <a th:href="@{/items/detail/{id} (id=${item.id})}">
                     <!--/* 登録して何日か以内のとき、newバッジを付ける */-->
                     [[ ${item.name} ]] <span class="badge badge-primary"
-                      th:if="${item.updatedAt >= oneWeekAgo}">new!</span> :
+                      th:if="${item.updatedAt >= oneWeekAgo}">new!</span>
                   </a>
                 </h2>
                 <div>[[ ${item.description} ]]</div>
@@ -63,6 +63,8 @@
         </div>
       </div>
     </div>
+    <!--/* トップに戻る戻るボタン */-->
+    <p class="pagetop"><a href="#page-top"><i class="bi bi-chevron-double-up"></i></a></p>
     <footer class="text-center">
       <p><small>&copy;CodeCamp All Rights Reserved.</small></p>
     </footer>

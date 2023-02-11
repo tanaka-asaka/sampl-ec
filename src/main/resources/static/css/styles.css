@@ -75,6 +75,15 @@ footer {
   display: block;
 }
 
+/* 左サイドメニュー */
+.menu {
+  display: block;
+  padding: 10px;
+  background-color: aliceblue;
+  text-align: center;
+}
+
+
 /* cardのｃｓｓをオフにして中の.item_rowにcssを付ける */
 .item.card {
   margin-bottom: 20px;
@@ -127,3 +136,47 @@ button {
 .admin_image {
   max-height: 200px;
 }
+
+
+
+/* トップに戻るボタン */
+.pagetop {
+  display: none;
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  line-height: center;
+  align-items: center;
+}
+
+.pagetop a {
+  width: 50px;
+  height: 50px;
+  display: block;
+  background-color: #ccc;
+  text-align: center;
+  color: #222;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 10px;
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+}
+
+.pagetop a:hover {
+  background-color: #b2d1fb;
+  color: #fff;
+  text-decoration: none;
+}
+
+.pagetop a i {
+  vertical-align: middle;
+}
+
+/* 商品詳細画面 */
+.detail_form {
+  margin: 30px;
+}
+
+
