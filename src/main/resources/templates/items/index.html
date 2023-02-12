@@ -38,7 +38,7 @@
                   <a th:href="@{/items/detail/{id} (id=${item.id})}">
                     <!--/* 登録して何日か以内のとき、newバッジを付ける */-->
                     [[ ${item.name} ]] <span class="badge badge-primary"
-                      th:if="${item.updatedAt >= oneWeekAgo}">new!</span>
+                      th:if="${item.createdAt >= oneWeekAgo}">new!</span>
                   </a>
                 </h2>
                 <div>[[ ${item.description} ]]</div>
@@ -46,7 +46,7 @@
                 <th:block th:if="${item.stock > 0}">
                   <div>在庫 ： あと [[ ${item.stock} ]] 個です！</div>
                 </th:block>
-                <p>更新日 ： [[ ${#calendars.format(item.updatedAt,"yyyy/MM/dd")} ]]</p>
+                <p>登録日 ： [[ ${#calendars.format(item.createdAt,"yyyy/MM/dd")} ]]</p>
                 <!-- 追加ここまで -->
                 <th:block th:if="${item.stock > 0}">
                   <p>[[ ${item.price} ]]円</p>
