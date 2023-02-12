@@ -18,7 +18,7 @@ public interface ItemService {
     
     // 商品名で検索する
     List<Item> findByNameContaining(String keyword);
-    
+
     // 商品情報を更新
     void updateItem(long id, String name, int price, int stock, String description);
     // 削除

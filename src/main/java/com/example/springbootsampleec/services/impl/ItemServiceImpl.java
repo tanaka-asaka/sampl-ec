@@ -51,7 +51,10 @@ public class ItemServiceImpl implements ItemService {
 		return itemRepository.findById(id);
 	}
 
-	// 商品名で検索する
+	/**
+	 * 追記　商品名で検索する
+	 */
+	@Transactional(readOnly = true)
 	@Override
 	public List<Item> findByNameContaining(String keyword) {
 		return itemRepository.findByNameContaining(keyword);
