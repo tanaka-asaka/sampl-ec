@@ -15,6 +15,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+/**
+ * 注文履歴用 Entity
+ * @author Tanaka asaka
+ *
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
