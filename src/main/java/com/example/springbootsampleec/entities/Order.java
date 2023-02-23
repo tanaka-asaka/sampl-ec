@@ -17,13 +17,17 @@ import lombok.NoArgsConstructor;
 
 /**
  * 注文履歴保存用 Entity
+ * 
  * @author Tanaka asaka
  *
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "`order`")
+/* order だとSQLの予約語だからエラー
+  @Table(name = "`order`")
+*/
+@Table(name = "orders")
 @Entity
 public class Order {
 	@Id
@@ -36,13 +40,13 @@ public class Order {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Item item; // 購入した商品のid
 
+	// 購入時の単価
+	@Column(name = "price", nullable = false)
+	private int price;
+
 	// 購入数
 	@Column(name = "amount", nullable = false)
-    private int amount;
-
-	// 購入時の金額
-	@Column(name = "price", nullable = false)
-    private int price; // 金額
+	private int amount;
 
 	// 購入日時
 	@Column(name = "orderAt", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
