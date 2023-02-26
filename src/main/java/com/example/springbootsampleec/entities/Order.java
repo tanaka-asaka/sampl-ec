@@ -17,9 +17,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 注文履歴保存用 Entity
- * 
  * @author Tanaka asaka
- *
  */
 @Data
 @NoArgsConstructor
@@ -34,11 +32,12 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; // id
 
+	//5-3 1:nのリレーションとは ～ 5-4 @OneToMany の利用
 	@ManyToOne(fetch = FetchType.LAZY)
-	private User user; // 購入したユーザーのid
+	private User user; // 購入したユーザーのidを保存？
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	private Item item; // 購入した商品のid
+	private Item item; // 購入した商品のidを保存？
 
 	// 購入時の単価
 	@Column(name = "price", nullable = false)
@@ -51,4 +50,5 @@ public class Order {
 	// 購入日時
 	@Column(name = "orderAt", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private ZonedDateTime orderAt;
+
 }

@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
         String joinedRoles = joinRoles(roles);
  
         // User エンティティの生成
-        User user = new User(null, null, name, email, encodedPassword, joinedRoles, Boolean.TRUE);
+        User user = new User(null, null, null, name, email, encodedPassword, joinedRoles, Boolean.TRUE);
  
         // ユーザー登録
         userRepository.saveAndFlush(user);

@@ -27,8 +27,10 @@ public class User {
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Cart> carts;
+	
 	// 注文履歴用設定
-	//private List<History> history;
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Order> orders;
 
 	@Column(name = "name", length = 60, nullable = false)
 	private String name; // ユーザー名
@@ -49,6 +51,8 @@ public class User {
 		int total = 0;
 		for (Cart cart : carts) {
 			total += cart.getAmount() * cart.getItem().getPrice();
+			
+			//確認用コンソール出力
 			System.out.println("getTotalAmount cart.getAmount() :" + cart.getAmount());
 			System.out.println("getTotalAmount cart.getItem().getPrice() :" + cart.getItem().getPrice());
 			System.out.println("getTotalAmount total :" + total);
