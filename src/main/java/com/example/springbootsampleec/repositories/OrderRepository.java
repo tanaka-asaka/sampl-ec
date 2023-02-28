@@ -11,9 +11,7 @@ import com.example.springbootsampleec.entities.User;
 
 /**
  * 注文履歴保存用 @Repository
- * 
  * @author Tanaka asaka
- *
  */
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
