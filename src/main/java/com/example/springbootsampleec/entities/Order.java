@@ -33,10 +33,10 @@ public class Order {
 	private Long id; // id
 
 	//5-3 1:nのリレーションとは ～ 5-4 @OneToMany の利用
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private User user; // 購入したユーザーのidを保存？
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY) //(fetch = FetchType.EAGER)だとSpringBootの起動失敗する
 	private Item item; // 購入した商品のidを保存？
 
 	// 購入時の単価

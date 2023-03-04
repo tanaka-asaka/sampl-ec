@@ -49,8 +49,12 @@ public class CartServiceImpl implements CartService {
 		if (cartRepository.existsByUserAndItem(user, item)) {
 			Cart cart = cartRepository.findTopByUserAndItem(user, item).orElseThrow();
 			//テスト出力
-			System.out.println(cart.getAmount() + 1);
+			System.out.println("cart.getAmount() + 1: " + cart.getAmount() + 1);
+			//System.out.println("findTopByUserAndItem(user, item) :" + cartRepository.findTopByUserAndItem(user, item));
+			System.out.println("user : " + user.getId());
+			//System.out.println("item : " + item);
 			cart.setAmount(cart.getAmount() + 1);
+			System.out.println("cart.getAmount() : " + cart.getAmount());
 			cartRepository.saveAndFlush(cart);
 		} else {
 			Cart cart = new Cart(null, user, item, 1, null, null);

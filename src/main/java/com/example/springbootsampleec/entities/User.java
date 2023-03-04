@@ -29,7 +29,7 @@ public class User {
 	private List<Cart> carts;
 	
 	// 注文履歴用設定
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Order> orders;
 
 	@Column(name = "name", length = 60, nullable = false)
