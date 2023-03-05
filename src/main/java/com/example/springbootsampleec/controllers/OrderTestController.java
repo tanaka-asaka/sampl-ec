@@ -44,9 +44,9 @@ public class OrderTestController {
 	@GetMapping("/")
 	public String orderSaveTest(
 			// エラー
-			@AuthenticationPrincipal(expression = "user") User user,
+			//@AuthenticationPrincipal(expression = "user") User user,
 			// エラーにならない
-			// User user,
+			 User user,
 			Model model) {
 
 		// ユーザー情報
@@ -79,7 +79,9 @@ public class OrderTestController {
 	 */
 	@GetMapping("/orderDetail/{id}")
 	public String orderListTest(@PathVariable("id") Long id, RedirectAttributes redirectAttributes,
-			@AuthenticationPrincipal(expression = "user") User user, Model model) {
+			//
+			// @AuthenticationPrincipal(expression = "user") User user,
+			User user, Model model) {
 		User refreshedUser = userService.findById(user.getId()).orElseThrow();
 		System.out.println("refreshedUse:" + refreshedUser);
 		int totalAmount = refreshedUser.getTotalAmount();
