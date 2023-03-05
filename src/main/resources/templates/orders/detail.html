@@ -5,6 +5,7 @@
     <h1>[[ ${title} ]]</h1>
     <p>ようこそ、[[ ${user.name} ]]さん。</p>
 
+
     <div class="row">
       <div class="col-9">
         <div class="card item" th:each="order : ${user.orders}">
@@ -23,7 +24,7 @@
                 <dt>購入数</dt>
                 <dd>[[ ${order.amount} ]]</dd>
                 <dt>合計金額</dt>
-                <dd>[[ ${orderamount * order.item.price} ]]円</dd>
+                <dd>[[ ${order.amount * order.item.price} ]]円</dd>
               </dl>
             </div>
           </div>

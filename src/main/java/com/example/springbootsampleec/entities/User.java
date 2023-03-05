@@ -29,7 +29,7 @@ public class User {
 	private List<Cart> carts;
 	
 	// 注文履歴用設定
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //(fetch = FetchType.EAGER)だとSpringBootの起動に失敗する
 	private List<Order> orders;
 
 	@Column(name = "name", length = 60, nullable = false)
@@ -55,6 +55,21 @@ public class User {
 			//確認用コンソール出力
 			System.out.println("getTotalAmount cart.getAmount() :" + cart.getAmount());
 			System.out.println("getTotalAmount cart.getItem().getPrice() :" + cart.getItem().getPrice());
+			System.out.println("getTotalAmount total :" + total);
+		}
+		return total;
+	}
+	
+
+	//注文履歴用、合計金額の取得
+	public int getOrderTotalAmount() {
+		int total = 0;
+		for (Order order : orders) {
+			total += order.getAmount() * order.getItem().getPrice();
+			
+			//確認用コンソール出力
+			System.out.println("getTotalAmount order.getAmount() :" + order.getAmount());
+			System.out.println("getTotalAmount order.getItem().getPrice() :" + order.getItem().getPrice());
 			System.out.println("getTotalAmount total :" + total);
 		}
 		return total;

@@ -3,16 +3,46 @@
 <div th:fragment="main">
   <div class="container contents">
     <h1>[[ ${title} ]]</h1>
-<!--/* 
     <p>ようこそ、[[ ${user.name} ]]さん。</p>
-*/-->
 
+
+    <div class="row">
+      <div class="col-9">
+        <div class="card item" th:each="order : ${user.orders}">
+          <div class="row item_row">
+            <div class="col-6 item_figure">
+              <img class="img-fluid" th:src="@{/images/{image} (image=${order.item.image})}">
+            </div>
+            <div class="col-6 item_description">
+              <dl>
+                <dt>商品名</dt>
+                <dd>[[ ${order.item.name} ]]</dd>
+                <dt>価格</dt>
+                <dd>[[ ${order.item.price} ]]円</dd>
+                <dt>説明</dt>
+                <dd>[[ ${order.item.description} ]]</dd>
+                <dt>購入数</dt>
+                <dd>[[ ${order.amount} ]]</dd>
+                <dt>合計金額</dt>
+                <dd>[[ ${order.amount * order.item.price} ]]円</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <h2>購入情報</h2>
+        <p>合計金額: [[ ${totalAmount} ]]円</p>
+      </div>
+    </div>
+
+
+    <!--/* トップに戻る戻るボタン */-->
+    <p class="pagetop"><a href="#page-top"><i class="bi bi-chevron-double-up"></i></a></p>
+    <footer class="text-center">
+      <p><small>&copy;CodeCamp All Rights Reserved.</small></p>
+    </footer>
   </div>
-  <!--/* トップに戻る戻るボタン */-->
-  <p class="pagetop"><a href="#page-top"><i class="bi bi-chevron-double-up"></i></a></p>
-  <footer class="text-center">
-    <p><small>&copy;CodeCamp All Rights Reserved.</small></p>
-  </footer>
 </div>
 
 </html>

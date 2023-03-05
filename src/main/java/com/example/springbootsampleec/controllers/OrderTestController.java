@@ -41,57 +41,90 @@ public class OrderTestController {
 		this.itemService = itemService;
 	}
 
-	@GetMapping("/")
+	@GetMapping("/save/")
 	public String orderSaveTest(
 			// エラー
-			//@AuthenticationPrincipal(expression = "user") User user,
+			// @AuthenticationPrincipal(expression = "user") User user,
 			// エラーにならない
-			 User user,
+			User user,
+			RedirectAttributes redirectAttributes,
 			Model model) {
 
 		// ユーザー情報
 		System.out.println("user:" + user);
 
 		/*
-		 * // 注文内容を保存する Order orders = new Order(); // ユーザー型をインスタンス化 // User user= new
-		 * User(); // ユーザー型にidをセット // int 型の範囲を超える整数リテラルを記述する場合は末尾に「L」または「l」を記述することで
-		 * long 型の値として扱われます。 // long 型の変数に int 型の範囲を超える数値を代入する場合は末尾に「L」を記述してください。 //
-		 * user.setId(1L); // ユーザー型で返す 中にsetIdを書くと返り値がlong型になるのでエラー
-		 * orders.setUser(user);
+		 * // int 型の範囲を超える整数リテラルを記述する場合は末尾に「L」または「l」を記述することで long 型の値として扱われます。 // long
+		 * 型の変数に int 型の範囲を超える数値を代入する場合は末尾に「L」を記述してください。 // user.setId(1L); // ユーザー型で返す
+		 * 中にsetIdを書くと返り値がlong型になるのでエラー orders.setUser(user);
 		 * 
 		 * // アイテム型をインスタンス化 Item item= new Item(); // アイテム型にidをセット item.setId(14L);
 		 * orders.setItem(item); orders.setAmount(1); orders.setPrice(1000);
 		 * orderRepository.saveAndFlush(orders); System.out.println("orders:"+orders);
 		 */
 
+		// ユーザー型にidをセット
 		// User refreshedUser = userService.findById(user.getId()).orElseThrow();
 		// System.out.println("refreshedUser:" + refreshedUser );
 		// model.addAttribute("user", refreshedUser);
 		model.addAttribute("title", "注文画面");
-		model.addAttribute("main", "orders/index::main");
+		model.addAttribute("main", "orders/save::main");
 		return "layout/logged_in";
 	}
+
 	/**
-	 * 
-	 * @param user
-	 * @param model
-	 * @return
+	 * 注文履歴、PathVariable版
 	 */
-	@GetMapping("/orderDetail/{id}")
-	public String orderListTest(@PathVariable("id") Long id, RedirectAttributes redirectAttributes,
+	@GetMapping("/")
+	public String index(
 			//
-			// @AuthenticationPrincipal(expression = "user") User user,
-			User user, Model model) {
-		User refreshedUser = userService.findById(user.getId()).orElseThrow();
-		System.out.println("refreshedUse:" + refreshedUser);
-		int totalAmount = refreshedUser.getTotalAmount();
+			@AuthenticationPrincipal(expression = "user") User user,
+			Model model) {
+
 		// ユーザー情報
-		//System.out.println("user:" + user);
+		// オーダー履歴の情報を取得
+		User refreshedUser = userService.findById(user.getId()).orElseThrow();
+		int totalAmount = refreshedUser.getOrderTotalAmount();
+
+		System.out.println("user.getId() : " + user.getId());
+		System.out.println("user : " + user);
+		// java.lang.StackOverflowError: null
+		// System.out.println("refreshedUse:" + refreshedUser);
+		System.out.println("refreshedUser.getOrderTotalAmount() : " + totalAmount);
 
 		model.addAttribute("title", "注文履歴");
-		model.addAttribute("main", "orders/detail::main");
+		model.addAttribute("main", "orders/index::main");
 		model.addAttribute("user", refreshedUser);
 		model.addAttribute("totalAmount", totalAmount);
 		return "layout/logged_in";
 	}
+
+	/**
+	 * 注文履歴、PathVariable版
+	 */
+	@GetMapping("/{id}")
+	public String orderListTest(@PathVariable("id") Long id,
+			//
+			// @AuthenticationPrincipal(expression = "user") User user,
+			User user, Model model) {
+
+		// ユーザー情報
+		user.setId(id);
+		// オーダー履歴の情報を取得
+		User refreshedUser = userService.findById(user.getId()).orElseThrow();
+		int totalAmount = refreshedUser.getOrderTotalAmount();
+
+		System.out.println("@PathVariable(id):" + id);
+		System.out.println("user:" + user);
+		// java.lang.StackOverflowError: null
+		// System.out.println("refreshedUse:" + refreshedUser);
+		System.out.println("refreshedUser.getOrderTotalAmount():" + totalAmount);
+
+		model.addAttribute("title", "注文履歴");
+		model.addAttribute("main", "orders/index::main");
+		model.addAttribute("user", refreshedUser);
+		model.addAttribute("totalAmount", totalAmount);
+		return "layout/logged_in";
+	}
+
 }

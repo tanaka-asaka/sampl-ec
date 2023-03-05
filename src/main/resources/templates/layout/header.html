@@ -14,6 +14,12 @@
                         <a class="nav-link" th:href="@{/users/detail/{id} (id=${user.id})}">自分のプロフィール</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" th:href="@{/orders/}"><i class="bi bi-receipt"></i> 注文履歴</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/orders/{id} (id=${user.id})}"><i class="bi bi-receipt"></i> 仮設、PathVariable版注文履歴</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/carts/}"><i class="bi bi-cart"></i> カートを見る</i></a>
                     </li>
                     <th:block th:if="${user.email == 'admin@admin.com'}">

@@ -13,13 +13,16 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 注文履歴保存用 Entity
  * @author Tanaka asaka
  */
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 /* order だとSQLの予約語だからエラー
@@ -36,7 +39,7 @@ public class Order {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private User user; // 購入したユーザーのidを保存？
 
-	@ManyToOne(fetch = FetchType.LAZY) //(fetch = FetchType.EAGER)だとSpringBootの起動失敗する
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Item item; // 購入した商品のidを保存？
 
 	// 購入時の単価
