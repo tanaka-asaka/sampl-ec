@@ -1,6 +1,7 @@
 package com.example.springbootsampleec.entities;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -29,8 +30,12 @@ public class User {
 	private List<Cart> carts;
 	
 	// 注文履歴用設定
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //(fetch = FetchType.EAGER)だとSpringBootの起動に失敗する
-	private List<Order> orders;
+	/** (fetch = FetchType.EAGER)だとSpringBootの起動に失敗する → LAZY だと、セッションが閉じられてデータが読み込めない → EAGER にして、ListをSetにする
+	 * @See https://qiita.com/kakasak/items/654f1f5549c1a27ea42b
+	 * @see https://it2022-talk.slack.com/archives/C04NDAH9XEF/p1676194927311129
+	 */
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	private Set<Order> orders;
 
 	@Column(name = "name", length = 60, nullable = false)
 	private String name; // ユーザー名

@@ -73,7 +73,7 @@ public class OrderTestController {
 	}
 
 	/**
-	 * 注文履歴、PathVariable版
+	 * 注文履歴、AuthenticationPrincipal(expression = "user") User user版
 	 */
 	@GetMapping("/")
 	public String index(
