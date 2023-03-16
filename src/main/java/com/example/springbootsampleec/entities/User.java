@@ -28,13 +28,9 @@ public class User {
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Cart> carts;
-	
+
 	// 注文履歴用設定
-	/** (fetch = FetchType.EAGER)だとSpringBootの起動に失敗する → LAZY だと、セッションが閉じられてデータが読み込めない → EAGER にして、ListをSetにする
-	 * @See https://qiita.com/kakasak/items/654f1f5549c1a27ea42b
-	 * @see https://it2022-talk.slack.com/archives/C04NDAH9XEF/p1676194927311129
-	 */
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<Order> orders;
 
 	@Column(name = "name", length = 60, nullable = false)
@@ -56,26 +52,28 @@ public class User {
 		int total = 0;
 		for (Cart cart : carts) {
 			total += cart.getAmount() * cart.getItem().getPrice();
-			
-			//確認用コンソール出力
-			System.out.println("getTotalAmount cart.getAmount() :" + cart.getAmount());
-			System.out.println("getTotalAmount cart.getItem().getPrice() :" + cart.getItem().getPrice());
+
+			// 確認用コンソール出力
 			System.out.println("getTotalAmount total :" + total);
 		}
 		return total;
 	}
-	
 
-	//注文履歴用、合計金額の取得
-	public int getOrderTotalAmount() {
-		int total = 0;
+	// 注文履歴用、合計金額の取得
+	public long getOrderTotalPrice() {
+		long total = 0;
+
+		// 確認用コンソール出力
+		System.out.println("注文履歴用、合計金額の取得");
+		System.out.println("getOrderTotalPrice :" + total);
+
 		for (Order order : orders) {
-			total += order.getAmount() * order.getItem().getPrice();
-			
-			//確認用コンソール出力
-			System.out.println("getTotalAmount order.getAmount() :" + order.getAmount());
-			System.out.println("getTotalAmount order.getItem().getPrice() :" + order.getItem().getPrice());
-			System.out.println("getTotalAmount total :" + total);
+			total += order.getAmount() * order.getPrice();
+
+			// 確認用コンソール出力
+			System.out.println("単価 * 数量:" + order.getPrice() + " * " + order.getAmount() + " = "
+					+ order.getAmount() * order.getPrice());
+			System.out.println("getOrderTotalPrice :" + total);
 		}
 		return total;
 	}

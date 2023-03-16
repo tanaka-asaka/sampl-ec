@@ -1,18 +1,17 @@
 package com.example.springbootsampleec.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.Order;
 import com.example.springbootsampleec.entities.User;
 import com.example.springbootsampleec.repositories.CartRepository;
 import com.example.springbootsampleec.repositories.ItemRepository;
@@ -41,90 +40,60 @@ public class OrderTestController {
 		this.itemService = itemService;
 	}
 
-	@GetMapping("/save/")
-	public String orderSaveTest(
-			// エラー
-			// @AuthenticationPrincipal(expression = "user") User user,
-			// エラーにならない
-			User user,
-			RedirectAttributes redirectAttributes,
-			Model model) {
-
-		// ユーザー情報
-		System.out.println("user:" + user);
-
-		/*
-		 * // int 型の範囲を超える整数リテラルを記述する場合は末尾に「L」または「l」を記述することで long 型の値として扱われます。 // long
-		 * 型の変数に int 型の範囲を超える数値を代入する場合は末尾に「L」を記述してください。 // user.setId(1L); // ユーザー型で返す
-		 * 中にsetIdを書くと返り値がlong型になるのでエラー orders.setUser(user);
-		 * 
-		 * // アイテム型をインスタンス化 Item item= new Item(); // アイテム型にidをセット item.setId(14L);
-		 * orders.setItem(item); orders.setAmount(1); orders.setPrice(1000);
-		 * orderRepository.saveAndFlush(orders); System.out.println("orders:"+orders);
-		 */
-
-		// ユーザー型にidをセット
-		// User refreshedUser = userService.findById(user.getId()).orElseThrow();
-		// System.out.println("refreshedUser:" + refreshedUser );
-		// model.addAttribute("user", refreshedUser);
-		model.addAttribute("title", "注文画面");
-		model.addAttribute("main", "orders/save::main");
-		return "layout/logged_in";
-	}
-
 	/**
-	 * 注文履歴、AuthenticationPrincipal(expression = "user") User user版
+	 * 注文履歴、@AuthenticationPrincipal版
+	 * 
+	 * @AuthenticationPrincipal UserエンティティのordersのFetchType.EAGERにして、型をSetにするとエラーにならない
+	 * @see https://qiita.com/kagamihoge/items/5250ec3c674debbfa5de
 	 */
 	@GetMapping("/")
-	public String index(
-			//
-			@AuthenticationPrincipal(expression = "user") User user,
-			Model model) {
+	public String index(@AuthenticationPrincipal(expression = "user") User user, Model model) {
 
 		// ユーザー情報
 		// オーダー履歴の情報を取得
 		User refreshedUser = userService.findById(user.getId()).orElseThrow();
-		int totalAmount = refreshedUser.getOrderTotalAmount();
+		long totalPrice = refreshedUser.getOrderTotalPrice();
 
-		System.out.println("user.getId() : " + user.getId());
-		System.out.println("user : " + user);
-		// java.lang.StackOverflowError: null
-		// System.out.println("refreshedUse:" + refreshedUser);
-		System.out.println("refreshedUser.getOrderTotalAmount() : " + totalAmount);
+		// テストコンソール出力
+		System.out.println("@AuthenticationPrincipal user.getId() : " + user.getId());
+		System.out.println("refreshedUser.getOrderTotalPrice() : " + totalPrice);
 
 		model.addAttribute("title", "注文履歴");
 		model.addAttribute("main", "orders/index::main");
 		model.addAttribute("user", refreshedUser);
-		model.addAttribute("totalAmount", totalAmount);
+		model.addAttribute("totalAmount", totalPrice);
 		return "layout/logged_in";
 	}
 
 	/**
-	 * 注文履歴、PathVariable版
+	 * @PathVariable だと、Idを直接入れて、ログインしていなくても閲覧できたので危険
 	 */
-	@GetMapping("/{id}")
-	public String orderListTest(@PathVariable("id") Long id,
-			//
-			// @AuthenticationPrincipal(expression = "user") User user,
-			User user, Model model) {
 
-		// ユーザー情報
-		user.setId(id);
-		// オーダー履歴の情報を取得
-		User refreshedUser = userService.findById(user.getId()).orElseThrow();
-		int totalAmount = refreshedUser.getOrderTotalAmount();
-
-		System.out.println("@PathVariable(id):" + id);
-		System.out.println("user:" + user);
-		// java.lang.StackOverflowError: null
-		// System.out.println("refreshedUse:" + refreshedUser);
-		System.out.println("refreshedUser.getOrderTotalAmount():" + totalAmount);
-
-		model.addAttribute("title", "注文履歴");
-		model.addAttribute("main", "orders/index::main");
-		model.addAttribute("user", refreshedUser);
-		model.addAttribute("totalAmount", totalAmount);
-		return "layout/logged_in";
-	}
+	/*
+	 * 保存テストのための記述、あまりセキュリティ的に良くない？
+	 * 
+	 * 
+	 * @GetMapping("/save/") public String
+	 * orderSaveTest(@AuthenticationPrincipal(expression = "user") User user, //
+	 * RedirectAttributes redirectAttributes, Model model) {
+	 * 
+	 * // ユーザー情報 User refreshedUser =
+	 * userService.findById(user.getId()).orElseThrow(); // アイテム型にidをセット Item item =
+	 * itemRepository.findById(21L).orElseThrow();
+	 * 
+	 * // テスト出力 System.out.println("refreshedUser : " + refreshedUser.getId());
+	 * System.out.println("item : " + item);
+	 * 
+	 * Order order = new Order(); order.setUser(refreshedUser); order.setItem(item);
+	 * order.setAmount(10); order.setPrice(10000);
+	 * 
+	 * // テスト出力 System.out.println("order : " + order);
+	 * 
+	 * orderRepository.saveAndFlush(order);
+	 * 
+	 * model.addAttribute("title", "注文画面"); model.addAttribute("user",
+	 * refreshedUser); model.addAttribute("main", "orders/save::main"); return
+	 * "layout/logged_in"; }
+	 */
 
 }
