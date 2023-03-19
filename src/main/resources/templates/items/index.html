@@ -40,7 +40,11 @@
                     [[ ${item.name} ]] <span class="badge badge-primary"
                       th:if="${item.createdAt >= oneWeekAgo}">new!</span>
                   </a>
+                  <!-- モーダルボタン -->
+                  <button type="button" class="" data-toggle="modal" th:data-target="'#modal' + ${item.id}">
+                    拡大表示</button>
                 </h2>
+
                 <div>[[ ${item.description} ]]</div>
                 <!-- 在庫数と更新日を追加 -->
                 <th:block th:if="${item.stock > 0}">
@@ -57,8 +61,37 @@
                 <th:block th:if="${item.stock <= 0}">
                   <div class="sold_out">売り切れ</div>
                 </th:block>
+
               </div>
             </div>
+
+            <!-- モーダル -->
+            <div class="modal fade" tabindex="-1" th:id="'modal' + ${item.id}">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">商品名 [[ ${item.name} ]]</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <!-- /.modal-header -->
+                  <div class="modal-body">
+                    <img class="img-fluid" src="./images/dummy.png" />
+                    <p>[[ ${item.description} ]]</p>
+                  </div>
+                  <!-- /.modal-body -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                  </div>
+                  <!-- /.modal-footer -->
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
           </div>
         </div>
       </div>
